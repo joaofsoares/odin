@@ -1,6 +1,6 @@
 package singly_linked_list_test
 
-import linked_list "../src/singly_linked_list"
+import linked_list "../../../src/misc/singly_linked_list"
 import "core:testing"
 
 @(test)
