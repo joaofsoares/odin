@@ -41,3 +41,25 @@ add_element :: proc(list: ^SinglyLinkedList, item: int) {
 		current.next = new_node
 	}
 }
+
+remove_element :: proc(list: ^SinglyLinkedList, item: int) {
+	if list.head == nil {
+		return
+	}
+
+	if list.head.data == item {
+		free(list.head) // need free before setting to avoid leaking
+		list.head = list.head.next
+		return
+	}
+
+	current := list.head
+	for current.next != nil {
+		if current.next.data == item {
+			free(current.next) // need free before setting to avoid leaking
+			current.next = current.next.next
+			return
+		}
+		current = current.next
+	}
+}
