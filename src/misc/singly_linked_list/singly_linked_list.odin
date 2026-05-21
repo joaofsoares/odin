@@ -7,6 +7,10 @@ Node :: struct {
 	next: ^Node,
 }
 
+SinglyLinkedList :: struct {
+	head: ^Node,
+}
+
 create_node :: proc(item: int) -> ^Node {
 	node := new(Node)
 	node.data = item
@@ -14,29 +18,26 @@ create_node :: proc(item: int) -> ^Node {
 	return node
 }
 
-print_elements :: proc(node: ^Node) {
-	tmp := node
-
-	fmt.println(tmp.data)
-
-	for tmp.next != nil {
-		tmp = tmp.next
-		fmt.println(tmp.data)
+print_elements :: proc(list: ^SinglyLinkedList) {
+	current := list.head
+	for current != nil {
+		fmt.println(current.data, " -> ")
+		current = current.next
 	}
+	fmt.println(" -> nil ")
 }
 
-add_element :: proc(node: ^Node, item: int) {
+add_element :: proc(list: ^SinglyLinkedList, item: int) {
 	new_node := create_node(item)
+	new_node.data = item
 
-	if node.next == nil {
-		node.next = new_node
+	if list.head == nil {
+		list.head = new_node
 	} else {
-		last := node.next
-
-		for last.next != nil {
-			last = last.next
+		current := list.head
+		for current.next != nil {
+			current = current.next
 		}
-
-		last.next = new_node
+		current.next = new_node
 	}
 }
